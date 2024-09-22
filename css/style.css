@@ -1,0 +1,268 @@
+/* ===UNIVERSAL=== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+:root {
+    --green-terminal: rgb(12, 216, 12);
+    --green-terminal-placeholder: rgb(5, 114, 5);
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: var(--green-terminal);
+}
+
+/* ===UTILITIES=== */
+p.search {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.error {
+    color: red;
+}
+
+.additional-buttons {
+    width: 400px;
+    height: 30px;
+    margin: 10px 0;
+    background-color: black;
+    border: 1px solid var(--green-terminal);
+    color: var(--green-terminal);
+    cursor: pointer;
+}
+
+.additional-buttons:hover {
+    background-color: var(--green-terminal);
+    color: black;
+}
+
+.action-td {
+    padding: 0;
+}
+
+.action-data {
+    height: 100%;
+    padding: 0;
+    display: flex;
+}
+
+.action-anchors {
+    flex: 1;
+}
+
+.action-buttons {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: var(--green-terminal);
+    border: 1px solid var(--green-terminal);
+    border-style: dashed;
+    cursor: pointer;
+}
+
+.action-buttons:hover {
+    background-color: var(--green-terminal);
+    color: black;
+}
+
+h2 {
+    margin: 10px 0;
+}
+
+hr{
+    margin-top: 15px;
+    margin-bottom: 5px;
+    width: 90%;
+    align-self: center;
+    background-color: var(--green-terminal);
+    color: var(--green-terminal);
+    border-top: 0.5px solid var(--green-terminal);
+    border-bottom: none;
+}
+
+/* ===FORMS=== */
+
+.required-text {
+    margin-right: 15px;
+}
+
+input[type=text] {
+    width: 400px;
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: black;
+    border: 1px solid var(--green-terminal);
+    color: var(--green-terminal);
+    border-style: dashed;
+    outline: none;
+}
+
+input[type=text]::placeholder {
+    color: var(--green-terminal-placeholder);
+}
+
+input[type=text]:active {
+    color: var(--green-terminal);
+}
+
+input[type=number] {
+    width: 400px;
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: black;
+    border: 1px solid var(--green-terminal);
+    color: var(--green-terminal);
+    border-style: dashed;
+    outline: none;
+}
+
+input[type=number]::placeholder {
+    color: var(--green-terminal-placeholder);
+}
+
+input[type=number]:active {
+    color: var(--green-terminal);
+}
+
+input[type=radio] {
+    cursor: pointer;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    margin-left: 10px;
+    border: 1px solid var(--green-terminal);
+    border-radius: 50px;
+}
+
+.radios{
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+input[type=radio]:before {
+    content: '';
+    display: block;
+    width: 70%;
+    height: 70%;
+    margin: 15% auto;
+    border-radius: 50px
+}
+
+input[type=radio]:checked::before {
+    background-color: var(--green-terminal);
+}
+
+#category {
+    height: 30px;
+    width: 200px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background-color: black;
+    color: var(--green-terminal);
+    border: 1px solid var(--green-terminal);
+    outline: none;
+    cursor: pointer;
+}
+
+#category:hover {
+    background-color: black;
+    outline: none;
+}
+
+input[type=submit] {
+    width: 400px;
+    height: 30px;
+    background-color: black;
+    border: 1px solid var(--green-terminal);
+    color: var(--green-terminal);
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: var(--green-terminal);
+    color: black;
+}
+
+/* ===LEFT-BOX=== */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.left-box {
+    width: 33.33vw;
+    height: 100vh;
+    background-color: black;
+    border: 2px solid var(--green-terminal);
+    border-style: dashed;
+    color: var(--green-terminal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===RIGHT-BOX=== */
+
+.right-box {
+    padding: 20px;
+    width: 66.66vw;
+    height: 100vh;
+    background-color: black;
+    color: var(--green-terminal);
+    border: 2px solid var(--green-terminal);
+    border-style: dashed;
+    border-left: none;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+table,
+th,
+td {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid;
+    /* border-radius: 10px; */
+    border-collapse: collapse;
+    border-style: dashed;
+}
+
+th,
+td {
+    width: 120px;
+    height: 30px;
+    max-width: 120px;
+    text-align: center;
+}
+
+th:hover,
+td:hover {
+    background-color: var(--green-terminal);
+    color: black;
+}
