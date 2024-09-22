@@ -17,7 +17,7 @@ class Product{
     }
 
     function showAllSearched($keyword, $category){
-        $sql =  "SELECT * FROM products WHERE (category LIKE ('%' :category '%')) AND (name LIKE ('%' :keyword '%'))";
+        $sql =  "SELECT * FROM products WHERE name LIKE '%' :keyword '%' AND category LIKE '%' :category '%'";
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':keyword', $keyword);
         $query->bindParam(':category', $category);

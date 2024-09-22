@@ -1,12 +1,6 @@
 <table>
     <h2>Table of Records</h2>
-    <?php
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
-        require_once "../class/product.class.php";
-        $productObj = new Product();
-        $array = $productObj->showAll();
-    ?>
+    
     <tr>
         <th>No.</th>
         <th>Name</th>

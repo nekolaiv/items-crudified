@@ -104,6 +104,13 @@ if(($_SERVER['REQUEST_METHOD'] == 'POST') && !empty("ddd")){
         </form>
     </div>
     <div class="right-box">
+        <?php
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
+            require_once "../class/product.class.php";
+            $productObj = new Product();
+            $array = $productObj->showAllSearched();
+        ?>
         <?php include_once "table.php"?>
     </div>
 </body>
