@@ -32,7 +32,7 @@
         <td class="action-td">
             <div class="action-data" id="action-div">
                 <a class="action-anchors" href="editProduct.php?id=<?= $arr['id']?>"><button type="button" class="action-buttons">Edit</button></a>
-                <a class="action-anchors" href="../utils/deleteProduct.php?id=<?= $arr['id']?>"><button type="button" class="action-buttons">Delete</button></a>
+                <a class="action-anchors deleteBtn" href="" data-id="<?= $arr['id']?> data-name="<?= $arr['name']?>"><button type="button" class="action-buttons">Delete</button></a>
             </div>
         </td>
     </tr>
@@ -41,3 +41,4 @@
     }
     ?>
 </table>
+<script src="../js/product.js"></script>

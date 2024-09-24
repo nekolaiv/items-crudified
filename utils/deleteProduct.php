@@ -7,8 +7,7 @@ require_once '../class/product.class.php';
 $obj = new Product();
 
 if ($obj->delete($id)) {
-    header('Location: ../views/product.php');
-    exit;
+    echo 'success';
 } else {
     echo 'failed';
 }
