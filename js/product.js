@@ -1,6 +1,6 @@
 let deleteButtons = document.querySelectorAll('.deleteBtn');
 
-deleteButtons.foreach(button => {
+deleteButtons.forEach(button => {
     button.addEventListener('click', function(e){
         e.preventDefault();
 
