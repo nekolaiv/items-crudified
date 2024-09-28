@@ -4,7 +4,6 @@ class Database{
     private $username = 'root';
     private $password = '';
     private $database = 'product';
-
     protected $connection;
 
     function connect(){
@@ -20,4 +19,3 @@ class Database{
         return $this->connection;
     }
 }
-?>
