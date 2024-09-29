@@ -34,7 +34,7 @@ class Product{
 
     // READ 
     function showAll(){
-        $sql =  "SELECT * FROM products";
+        $sql = "SELECT * FROM products";
         $query = $this->db->connect()->prepare($sql);
         $data=null;
         if($query->execute()){
@@ -59,8 +59,19 @@ class Product{
         $sql = "SELECT DISTINCT category FROM products ORDER BY category ASC;";
         $query = $this->db->connect()->prepare($sql);
         $data = null;
-        if ($query->execute()) {
+        if($query->execute()) {
             $data = $query->fetchAll();
+        }
+        return $data;
+    }
+
+    function fetchRecord($recordID) {
+        $sql = "SELECT * FROM products WHERE id = :recordID;";
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':recordID', $recordID);
+        $data = null;
+        if($query->execute()) {
+            $data = $query->fetch();
         }
         return $data;
     }
@@ -77,17 +88,6 @@ class Product{
         return $query->execute();
     }
    
-    function fetchRecord($recordID) {
-        $sql = "SELECT * FROM products WHERE id = :recordID;";
-        $query = $this->db->connect()->prepare($sql);
-        $query->bindParam(':recordID', $recordID);
-        $data = null;
-        if ($query->execute()) {
-            $data = $query->fetch();
-        }
-        return $data;
-    }
-
     // DELETE
     function delete($id) {
         $sql = "DELETE FROM products WHERE id = :id;";
@@ -95,8 +95,5 @@ class Product{
         $query->bindParam(':id', $id);
         return $query->execute();
     }
-
-    
 }
-
 ?>
