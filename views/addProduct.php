@@ -6,11 +6,10 @@ require_once('../class/product.class.php');
 
 $name = $category = $price = $availability = '';
 $nameErr = $categoryErr = $priceErr = $availabilityErr = '';
-
 $productObj = new Product();
 
 
-if(($_SERVER['REQUEST_METHOD'] == 'POST') && !empty("ddd")){
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $name = clean_input($_POST['name']);
     $category = clean_input($_POST['category']);
     $price = clean_input($_POST['price']);

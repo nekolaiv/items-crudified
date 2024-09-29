@@ -17,7 +17,7 @@
             if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['search'])){
                 $keyword = htmlentities($_POST['keyword']);
                 $category = htmlentities($_POST['category']);
-                $array = $productObj->showAllSearched($keyword, $category);   
+                $array = $productObj->showAll($keyword, $category);   
             } else if ($keyword == '' && $category == ''){
                 $array = $productObj->showAll();   
             }

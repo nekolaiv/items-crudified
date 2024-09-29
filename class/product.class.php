@@ -32,19 +32,9 @@ class Product{
         }
     }
 
-    // READ 
-    function showAll(){
-        $sql = "SELECT * FROM products";
-        $query = $this->db->connect()->prepare($sql);
-        $data=null;
-        if($query->execute()){
-            $data = $query->fetchAll();
-        }
-        return $data;
-    }
 
-    function showAllSearched($keyword, $category){
-        $sql =  "SELECT * FROM products WHERE name LIKE '%' :keyword '%' AND category LIKE '%' :category '%' ORDER BY name ASC;";
+    function showAll($keyword='', $category=''){
+        $sql =  "SELECT * FROM products WHERE name OR category LIKE '%' :keyword '%' AND category LIKE '%' :category '%' ORDER BY name ASC;";
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':keyword', $keyword);
         $query->bindParam(':category', $category);
