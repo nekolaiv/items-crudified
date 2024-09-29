@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             ini_set('display_errors', 1);
             require_once "../class/product.class.php";
             $productObj = new Product();
-            $array = $productObj->showAllSearched();
+            $array = $productObj->showAll();
         ?>
         <?php include_once "table.php"?>
     </div>
