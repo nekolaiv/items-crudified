@@ -4,8 +4,8 @@ ini_set('display_errors', 1);
 require_once('../utils/function.php');
 require_once('../class/product.class.php');
 
-$name = $category = $price = $availability = '';
-$nameErr = $categoryErr = $priceErr = $availabilityErr = '';
+$code = $name = $category = $price = '';
+$codeErr = $nameErr = $categoryErr = $priceErr = '';
 $productObj = new Product();
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -13,10 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $id = $_GET['id'];
         $record = $productObj->fetchRecord($id);
         if (!empty($record)) {
+            $code = $record['code'];
             $name = $record['name'];
-            $category = $record['category'];
+            $category = $record['category_id'];
             $price = $record['price'];
-            $availability = $record['availability'];
         } else {
             echo 'No product found';
         }
@@ -26,10 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = clean_input($_GET['id']);
+    $code = clean_input($_POST['code']);
     $name = clean_input($_POST['name']);
     $category = clean_input($_POST['category']);
     $price = clean_input($_POST['price']);
-    $availability = isset($_POST['availability']) ? clean_input($_POST['availability']) : '';
+
+    if (empty($code)) {
+        $codeErr = 'Product Code is required';
+    } else if ($productObj->codeExists($code, $id)) {
+        $codeErr = 'Product Code already exists';
+    }
 
     if (empty($name)) {
         $nameErr = 'Name is required';
@@ -47,16 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $priceErr = 'Price must be greater than 0';
     }
 
-    if (empty($availability)) {
-        $availabilityErr = 'Availability is required';
-    }
-
-    if (empty($nameErr) && empty($priceErr) && empty($categoryErr) && empty($availabilityErr)) {
+    if (empty($codeErr) && empty($nameErr) && empty($priceErr) && empty($categoryErr)) {
         $productObj->id = $id;
+        $productObj->code = $code;
         $productObj->name = $name;
-        $productObj->category = $category;
+        $productObj->category_id = $category;
         $productObj->price = $price;
-        $productObj->availability = $availability;
 
         if ($productObj->edit()) {
             header("Location: product.php");
@@ -82,6 +84,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <h2>Edit Product Form</h2>
             <span class="error">* are required fields</span>
             <br>
+            <div><label for="code">Code</label><span class="error">*</span></div>
+            <input type="text" name="code" id="code" value="<?= $code ?>">
+            <?php if (!empty($codeErr)): ?>
+                <span class="error"><?= $codeErr ?></span><br>
+            <?php endif; ?>
             <div><label for="name">Name</label><span class="error">*</span></div>
             <input type="text" name="name" id="name" placeholder="Name of the product..." value="<?= $name ?>">
             <?php if(!empty($nameErr)): ?>
@@ -90,9 +97,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             <div><label for="category">Category</label><span class="error">*</span></div>
             <select name="category" id="category">
-                <option value="">--Select category--</option>
-                <option value="Gadget" <?= (isset($category) && $category == 'Gadget') ? 'selected=true' : '' ?>>Gadget</option>
-                <option value="Toys" <?= (isset($category) && $category == 'Toys') ? 'selected=true' : '' ?>>Toys</option>
+            <option value="">--Select--</option>
+            <?php
+                $categoryList = $productObj->fetchCategory();
+                foreach ($categoryList as $cat){
+            ?>
+                <option value="<?= $cat['id'] ?>" <?= ($category == $cat['id']) ? 'selected' : '' ?>><?= $cat['name'] ?></option>
+            <?php
+                }
+            ?>
             </select>
             <?php if(!empty($categoryErr)): ?>
                 <span class="error"><?= $categoryErr ?></span><br>
@@ -104,20 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 <span class="error"><?= $priceErr ?></span>
                 <br>
             <?php endif; ?>
-            <div><label for="availability">Availability</label><span class="error">*</span></div>
-            <div class="div-radio-button">
-                <div class="radios">
-                    <label for="instock">In Stock</label>
-                    <input type="radio" value="In Stock" name="availability" id="instock" <?= ($availability == 'In Stock') ? 'checked' : '' ?>>
-                </div>
-                <div class="radios">
-                    <label for="nostock">No Stock</label>
-                    <input type="radio" value="No Stock" name="availability" id="nostock" <?= ($availability == 'No Stock') ? 'checked' : '' ?>>
-                </div>
-            </div>
-            <?php if (!empty($availability)): ?>
-                <span class="error"><?= $availabilityErr ?></span>
-            <?php endif;?>
             <br>
             <input type="submit" value="Save Product">
             <a href="product.php"><button class="additional-buttons" type="button">Cancel</button></a>
