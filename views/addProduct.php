@@ -4,23 +4,31 @@ ini_set('display_errors', 1);
 require_once('../utils/function.php');
 require_once('../class/product.class.php');
 
-$name = $category = $price = $availability = '';
-$nameErr = $categoryErr = $priceErr = $availabilityErr = '';
+$code = $name = $category = $price = '';
+$codeErr = $nameErr = $categoryErr = $priceErr = '';
 $productObj = new Product();
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $code = clean_input($_POST['code']);
     $name = clean_input($_POST['name']);
     $category = clean_input($_POST['category']);
     $price = clean_input($_POST['price']);
-    $availability = isset($_POST['availability']) ? clean_input($_POST['availability']) : '';
+
+    if(empy($code)){
+        $codeErr = 'Product code is required';
+    } else if($productObj->codeExist($code)){
+        $codeErr = 'Product Code already exists';
+    }
 
     if(empty($name)){
         $nameErr = "Product name is required";
     }
+    
     if(empty($category)){
         $categoryErr = "Category is required";
     }
+
     if(empty($price)){
         $priceErr = "Price is required";
     } else if(!is_numeric($price)){
@@ -32,11 +40,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $availabilityErr = "Availability is required";
     }
 
-    if(empty($nameErr) && empty($categoryErr) && empty($priceErr) && empty($availabilityErr)){
+    if(empty($codeErr) && empty($nameErr) && empty($categoryErr) && empty($priceErr)){
+        $productObj->code = $code;
         $productObj->name = $name;
-        $productObj->category = $category;
+        $productObj->category_id = $category;
         $productObj->price = $price;
-        $productObj->availability = $availability;
 
         if($productObj->add()){
             header('Location: product.php');
