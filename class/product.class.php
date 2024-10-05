@@ -6,7 +6,7 @@ require_once "database.class.php";
 class Product{
     public $id; 
     public $name;
-    public $category;
+    public $category_id;
     public $price;
     public $availability;
 
@@ -18,12 +18,12 @@ class Product{
 
     // CREATE
     function add(){
-        $sql = "INSERT INTO products(name, category, price, availability) VALUES(:name, :category, :price, :availability)";
+        $sql = "INSERT INTO products(code, name, category_id, price) VALUES(:code, :name, :category_id, :price)";
         $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':code', $this->code);
         $query->bindParam(':name', $this->name);
-        $query->bindParam(':category', $this->category);
+        $query->bindParam(':category_id', $this->category_id);
         $query->bindParam(':price', $this->price);
-        $query->bindParam(':availability', $this->availability);
 
         if($query->execute()){
             return true;
@@ -33,8 +33,21 @@ class Product{
     }
 
 
+    // READ
     function showAll($keyword='', $category=''){
-        $sql =  "SELECT * FROM products WHERE name OR category LIKE '%' :keyword '%' AND category LIKE '%' :category '%' ORDER BY name ASC;";
+        $sql = "SELECT p.*, 
+        c.name as category_name, 
+        SUM(IF(s.status='in', quantity, 0)) as stock_in, 
+        SUM(IF(s.status='out', quantity, 0)) as stock_out 
+        FROM product p 
+        INNER JOIN category c 
+        ON p.category_id = c.id 
+        LEFT JOIN stocks s 
+        ON p.id = s.product_id 
+        WHERE (p.code LIKE CONCAT('%', :keyword, '%') 
+        OR p.name LIKE CONCAT('%', :keyword, '%')) 
+        AND (c.id LIKE CONCAT('%', :category, '%')) 
+        GROUP BY p.id ORDER BY p.name ASC;";
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':keyword', $keyword);
         $query->bindParam(':category', $category);
@@ -46,17 +59,17 @@ class Product{
     }
 
     function fetchCategory() {
-        $sql = "SELECT DISTINCT category FROM products ORDER BY category ASC;";
+        $sql = "SELECT * FROM category ORDER BY name ASC;";
         $query = $this->db->connect()->prepare($sql);
         $data = null;
         if($query->execute()) {
-            $data = $query->fetchAll();
+            $data = $query->fetchAll(PDO::FETCH_ASSOC);
         }
         return $data;
     }
 
     function fetchRecord($recordID) {
-        $sql = "SELECT * FROM products WHERE id = :recordID;";
+        $sql = "SELECT * FROM product WHERE id = :recordID;";
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':recordID', $recordID);
         $data = null;
@@ -66,24 +79,43 @@ class Product{
         return $data;
     }
 
+    function codeExists($code, $excludeID=null){
+        $sql = "SELECT COUNT(*) FROM product WHERE code = :code";
+        if ($excludeID){
+            $sql .= " AND id != :excludeID";
+        }
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':code', $code);
+
+        if($excludeID){
+            $query->bindParam(':excludeID', $excludeID);
+        }
+        $query->execute();
+        $count = $query->fetchColumn();
+
+        return $count > 0;
+    }
+
     // UPDATE
     function edit() {
-        $sql = "UPDATE products SET name = :name, category = :category, price = :price, availability = :availability WHERE id = :id;";
+        $sql = "UPDATE product SET code = :code, name = :name, category_id = :category_id, price = :price WHERE id = :id;";
         $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':code', $this->code);
         $query->bindParam(':name', $this->name);
-        $query->bindParam(':category', $this->category);
+        $query->bindParam(':category_id', $this->category_id);
         $query->bindParam(':price', $this->price);
-        $query->bindParam(':availability', $this->availability);
         $query->bindParam(':id', $this->id);
         return $query->execute();
     }
    
     // DELETE
     function delete($id) {
-        $sql = "DELETE FROM products WHERE id = :id;";
+        $sql = "DELETE FROM product WHERE id = :id;";
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':id', $id);
         return $query->execute();
     }
+
+
 }
 ?>
