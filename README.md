@@ -1,7 +1,7 @@
 # Product Manager
 
 ## Description
-A PHP project for managing products with CRUD (Create, Read, Update, Delete) functionality. Integrated with a MySQL database via phpMyAdmin.
+A PHP project, following along with our web development 2 lectures, for managing products with CRUD (Create, Read, Update, Delete) functionality. Integrated with a MySQL database via phpMyAdmin.
 
 ## Features
 - Create new products
@@ -30,4 +30,4 @@ A PHP project for managing products with CRUD (Create, Read, Update, Delete) fun
 Feel free to submit a pull request for improvements or bug fixes.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the MIT [License](LICENSE).
