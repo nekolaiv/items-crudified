@@ -3,10 +3,12 @@
     
     <tr>
         <th>No.</th>
+        <th>Code</th>
         <th>Name</th>
         <th>Category</th>
         <th>Price</th>
-        <th>Availability</th>
+        <th>Total Stocks</th>
+        <th>Available Stocks</th>
         <th>Action</th>
     </tr>
     <?php
@@ -21,14 +23,17 @@
 
     <?php
     }
-    foreach($array as $arr){
+    foreach ($array as $arr) {
+        $available = $arr['stock_in'] - $arr['stock_out'];
     ?>
     <tr>
         <td><?= $id?></td>  
+        <td><?= $arr['code']?></td>
         <td><?= $arr['name']?></td>
-        <td><?= $arr['category']?></td>
+        <td><?= $arr['category_name']?></td>
         <td><?= $arr['price']?></td>
-        <td><?= $arr['availability']?></td>
+        <td><?= $arr['stock_in'] ?></td>
+        <td><?= $available ?></td>
         <td class="action-td">
             <div class="action-data" id="action-div">
                 <a class="action-anchors" href="editProduct.php?id=<?= $arr['id']?>"><button type="button" class="action-buttons">Edit</button></a>
