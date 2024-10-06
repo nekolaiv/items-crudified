@@ -18,18 +18,23 @@
                 $keyword = htmlentities($_POST['keyword']);
                 $category = htmlentities($_POST['category']);
                 $array = $productObj->showAll($keyword, $category);   
-            } else if ($keyword == '' && $category == ''){
-                $array = $productObj->showAll();   
             }
         ?>
         <form action="" method="post">
             <h2>Main Menu</h2>
             <label for="category">Category</label>
             <select name="category" id="category">
-                <option value="">All</option>   
-                <option value="Gadget" <?= (isset($category) && $category == 'Gadget') ? 'selected' : '' ?>>Gadget</option>
-                <option value="Toys" <?= (isset($category) && $category == 'Toys') ? 'selected' : '' ?>>Toys</option>
-            </select><br>
+            <option value="">--Select--</option>
+            <?php
+                $categoryList = $productObj->fetchCategory();
+                foreach ($categoryList as $cat){
+            ?>
+                <option value="<?= $cat['name'] ?>" <?= ($category == $cat['name']) ? 'selected' : '' ?>><?= $cat['name'] ?></option>
+            <?php
+                }
+            ?>
+            </select>
+            <br>
             <label for="keyword">Search Bar</label>
             <input type="text" name="keyword" id="keyword" placeholder="Search for keyword or category..." value="<?= $keyword ?>">
             <input type="submit" value="Search" name="search" id="search">
