@@ -17,8 +17,9 @@
             if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['search'])){
                 $keyword = htmlentities($_POST['keyword']);
                 $category = htmlentities($_POST['category']);
-                $array = $productObj->showAll($keyword, $category);   
             }
+            
+            $array = $productObj->showAll($keyword, $category); 
         ?>
         <form action="" method="post">
             <h2>Main Menu</h2>
