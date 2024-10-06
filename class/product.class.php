@@ -5,10 +5,10 @@ require_once "database.class.php";
 
 class Product{
     public $id; 
+    public $code; 
     public $name;
     public $category_id;
     public $price;
-    public $availability;
 
     protected $db;
 
@@ -18,7 +18,7 @@ class Product{
 
     // CREATE
     function add(){
-        $sql = "INSERT INTO products(code, name, category_id, price) VALUES(:code, :name, :category_id, :price)";
+        $sql = "INSERT INTO product(code, name, category_id, price) VALUES(:code, :name, :category_id, :price)";
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':code', $this->code);
         $query->bindParam(':name', $this->name);
@@ -35,19 +35,20 @@ class Product{
 
     // READ
     function showAll($keyword='', $category=''){
-        $sql = "SELECT p.*, 
-        c.name as category_name, 
+        $sql = "SELECT p.*, c.name as category_name,
         SUM(IF(s.status='in', quantity, 0)) as stock_in, 
         SUM(IF(s.status='out', quantity, 0)) as stock_out 
         FROM product p 
-        INNER JOIN category c 
-        ON p.category_id = c.id 
-        LEFT JOIN stocks s 
-        ON p.id = s.product_id 
-        WHERE (p.code LIKE CONCAT('%', :keyword, '%') 
-        OR p.name LIKE CONCAT('%', :keyword, '%')) 
-        AND (c.id LIKE CONCAT('%', :category, '%')) 
-        GROUP BY p.id ORDER BY p.name ASC;";
+        INNER JOIN category c ON p.category_id = c.id 
+        LEFT JOIN stocks s ON p.id = s.product_id 
+        WHERE (:keyword IS NULL OR 
+            p.code LIKE CONCAT('%', :keyword, '%') OR 
+            p.name LIKE CONCAT('%', :keyword, '%') OR 
+            c.name LIKE CONCAT('%', :keyword, '%')) 
+        AND (:category IS NULL OR 
+            c.name LIKE CONCAT('%', :category, '%')) 
+        GROUP BY p.id 
+        ORDER BY p.name ASC;";
         $query = $this->db->connect()->prepare($sql);
         $query->bindParam(':keyword', $keyword);
         $query->bindParam(':category', $category);
