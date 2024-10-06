@@ -16,7 +16,7 @@
     if (empty($array)){
     ?>
         <tr>
-            <td colspan="7">
+            <td colspan="8">
                 <p class="search">No products found.</p>
             </td>
         </tr>
