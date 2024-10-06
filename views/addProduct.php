@@ -15,9 +15,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $category = clean_input($_POST['category']);
     $price = clean_input($_POST['price']);
 
-    if(empy($code)){
+    if(empty($code)){
         $codeErr = 'Product code is required';
-    } else if($productObj->codeExist($code)){
+    } else if($productObj->codeExists($code)){
         $codeErr = 'Product Code already exists';
     }
 
@@ -67,7 +67,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <div class="left-box">
         <form action="" method="post">
             <h2>Add Product Form</h2>
-            <span class="error">* are required fields</span>
+            <span class="error">* are required fields</span><br>
+            <div><label for="code">Code</label><span class="error">*</span></div>
+            <input type="text" name="code" id="code" value="<?= $code ?>">
+            <?php if (!empty($codeErr)): ?>
+                <span class="error"><?= $codeErr ?></span><br>
+            <?php endif; ?>
             <br>
             <div><label for="name">Name</label><span class="error">*</span></div>
             <input type="text" name="name" id="name" placeholder="Name of the product..." value="<?= $name ?>">
@@ -77,9 +82,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             <div><label for="category">Category</label><span class="error">*</span></div>
             <select name="category" id="category">
-                <option value="">--Select category--</option>
-                <option value="Gadget" <?= (isset($category) && $category == 'Gadget') ? 'selected=true' : '' ?>>Gadget</option>
-                <option value="Toys" <?= (isset($category) && $category == 'Toys') ? 'selected=true' : '' ?>>Toys</option>
+            <option value="">--Select--</option>
+            <?php
+                $categoryList = $productObj->fetchCategory();
+                foreach ($categoryList as $cat){
+            ?>
+                <option value="<?= $cat['id'] ?>" <?= ($category == $cat['id']) ? 'selected' : '' ?>><?= $cat['name'] ?></option>
+            <?php
+                }
+            ?>
             </select>
             <?php if(!empty($categoryErr)): ?>
                 <span class="error"><?= $categoryErr ?></span><br>
@@ -91,20 +102,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <span class="error"><?= $priceErr ?></span>
                 <br>
             <?php endif; ?>
-            <div><label for="availability">Availability</label><span class="error">*</span></div>
-            <div class="div-radio-button">
-                <div class="radios">
-                    <label for="instock">In Stock</label>
-                    <input type="radio" value="In Stock" name="availability" id="instock" <?= ($availability == 'In Stock') ? 'checked' : '' ?>>
-                </div>
-                <div class="radios">
-                    <label for="nostock">No Stock</label>
-                    <input type="radio" value="No Stock" name="availability" id="nostock" <?= ($availability == 'No Stock') ? 'checked' : '' ?>>
-                </div>
-            </div>
-            <?php if (!empty($availabilityErr)): ?>
-                <span class="error"><?= $availabilityErr ?></span>
-            <?php endif;?>
             <br>
             <input type="submit" value="Add Product">
             <a href="product.php"><button class="additional-buttons" type="button">Cancel</button></a>
