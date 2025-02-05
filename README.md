@@ -1,4 +1,4 @@
-# Product Manager
+# Item Manager
 
 ## Description
 A PHP project, following along with our web development 2 lectures, for managing products with CRUD (Create, Read, Update, Delete) functionality. Integrated with a MySQL database via phpMyAdmin.
