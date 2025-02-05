@@ -1,4 +1,4 @@
-# Items Manager
+# Items Crudified
 
 ## Description
 A simple project for managing item with Create, Read, Update, and Delete Functionalities.
