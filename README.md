@@ -12,19 +12,13 @@ A simple project for managing item with Create, Read, Update, and Delete Functio
 ## Installation
 1. Clone the repository:  
    `git clone https://github.com/nekolaiv/items-crudified.git`
-   
-2. Move the project directory to the XAMPP `htdocs` folder:  
-   `mv product-manager /path/to/xampp/htdocs/`
-   
-3. Navigate to the `sql` folder and import the SQL database schema using phpMyAdmin:
-   - Open phpMyAdmin in your browser (usually at `http://localhost/phpmyadmin`).
-   - Create a new database.
-   - Click on the "Import" tab.
-   - Choose the SQL file `database.sql` located in `items-manager/sql/` and click "Go".
+
+2. Make sure to have your Django Environment Setup.
+
 
 ## Usage
 - Start your XAMPP server.
-- Access the application at `http://localhost/items-crudified`.
+- Run your django server.
 
 ## Contributing
 Feel free to submit a pull request for improvements or bug fixes.
