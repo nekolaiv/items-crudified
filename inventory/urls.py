@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import FoodCreateView, FoodUpdateView, FoodDeleteView, GadgetCreateView, GadgetDeleteView, GadgetUpdateView, HomeListView
 
-
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
     path('food/add', FoodCreateView.as_view(), name='add_food'),
