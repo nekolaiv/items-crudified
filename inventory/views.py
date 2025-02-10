@@ -1,82 +1,56 @@
-from django.shortcuts import redirect, render
-
-from inventory.models import Food, Gadget
+from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Food, Gadget
+from .forms import FoodForm, GadgetForm
 
 # Create your views here.
 
-def index(request):
-    foods = Food.objects.all()
-    gadgets = Gadget.objects.all()
-    return render(request, 'index.html', {'foods': foods, 'gadgets': gadgets})
+
+class HomeListView(TemplateView):
+    template_name = 'home.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['foods'] = Food.objects.all()  # Fetch all Food items
+        context['gadgets'] = Gadget.objects.all()  # Fetch all Gadget items
+        return context
 
 
-def add_food(request):
-    return render(request,'add_food.html')
+class FoodCreateView(CreateView):
+    model = Food
+    form_class = FoodForm
+    template_name = 'food_form.html'
+    success_url = reverse_lazy('home')
 
 
-def add_food_form(request):
-    food_id=request.POST['id']
-    food_name=request.POST['name']
-    food_price=request.POST['price']
-    foods=Food(id=food_id, name=food_name,price=food_price)
-    foods.save()
-    return redirect("/")
+class FoodUpdateView(UpdateView):
+    model = Food
+    form_class = FoodForm
+    template_name = 'food_form.html'
+    success_url = reverse_lazy('home')
 
 
-def add_gadget(request):
-    return render(request,'add_gadget.html')
+class FoodDeleteView(DeleteView):
+    model = Food
+    template_name = 'confirm_delete.html'
+    success_url = reverse_lazy('home')
 
 
-def add_gadget_form(request):
-    gadget_id=request.POST['id']
-    gadget_name=request.POST['name']
-    gadget_price=request.POST['price']
-    gadgets=Gadget(id=gadget_id, name=gadget_name,price=gadget_price)
-    gadgets.save()
-    return redirect("/")
+class GadgetCreateView(CreateView):
+    model = Gadget
+    form_class = GadgetForm
+    template_name = 'gadget_form.html'
+    success_url = reverse_lazy('home')
 
 
-def edit_food(request, id):
-    foods=Food.objects.get(id=id)
-    return render(request,'edit_food.html',{'foods':foods})
+class GadgetUpdateView(UpdateView):
+    model = Gadget
+    form_class = GadgetForm
+    template_name = 'gadget_form.html'
+    success_url = reverse_lazy('home')
 
 
-def edit_food_form(request, id):
-    food_id=request.POST['id']
-    food_name=request.POST['name']
-    food_price=request.POST['price']
-    food=Food.objects.get(id=id)
-    food.id=food_id
-    food.name=food_name
-    food.price=food_price
-    food.save()
-    return redirect("/")
+class GadgetDeleteView(DeleteView):
+    model = Gadget
+    template_name = 'confirm_delete.html'
+    success_url = reverse_lazy('home')
 
-
-def edit_gadget(request, id):
-    gadgets=Gadget.objects.get(id=id)
-    return render(request,'edit_gadget.html',{'gadgets':gadgets})
-
-
-def edit_gadget_form(request, id):
-    gadget_id=request.POST['id']
-    gadget_name=request.POST['name']
-    gadget_price=request.POST['price']
-    gadget=Gadget.objects.get(id=id)
-    gadget.id=gadget_id
-    gadget.name=gadget_name
-    gadget.price=gadget_price
-    gadget.save()
-    return redirect("/")
-
-
-def delete_food(request,id):
-    foods=Food.objects.get(id=id)
-    foods.delete()
-    return redirect("/")
-
-
-def delete_gadget(request,id):
-    gadgets=Gadget.objects.get(id=id)
-    gadgets.delete()
-    return redirect("/")
