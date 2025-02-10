@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Food(models.Model):
     name = models.CharField(max_length=100, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
@@ -10,7 +11,7 @@ class Food(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 
 class Gadget(models.Model):
     name = models.CharField(max_length=100, unique=True)

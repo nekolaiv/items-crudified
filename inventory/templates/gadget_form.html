@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if object %}Edit{% else %}Add{% endif %} Gadget</title>
-</head>
-<body>
-    <h1>{% if object %}Edit{% else %}Add{% endif %} Food</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+	{% load static %}
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{% if object %}Edit{% else %}Add{% endif %} Gadget</title>
+	</head>
+	<body>
+		<h1>{% if object %}Edit{% else %}Add{% endif %} Food</h1>
+		<form method="post">
+			{% csrf_token %} {{ form.as_p }}
+			<button type="submit">Save</button>
+		</form>
 
-    <a href="/">Cancel</a>
-</body>
+		<a href="/">Cancel</a>
+	</body>
 </html>

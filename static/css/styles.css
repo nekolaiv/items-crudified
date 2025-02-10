@@ -1,81 +1,84 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  color: var(--var-green);
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	color: var(--var-green);
 }
 
 :root {
-  --var-green: rgb(2, 194, 2);
+	--var-green: rgb(2, 194, 2);
 }
 
 body {
-  font-family: monospace;
-  background-color: black;
-  /* border: 1px solid red; */
-  min-height: 100vh;
-  height: full !important;
-  max-width: 100vw;
-  padding: 20px;
-  overflow-x: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
+	font-family: monospace;
+	background-color: black;
+	/* border: 1px solid red; */
+	min-height: 100vh;
+	height: full !important;
+	max-width: 100vw;
+	padding: 20px;
+	overflow-x: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	flex-direction: column;
 }
 
 form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 input {
-    all: unset;
-    border: 1px dashed var(--var-green);
-    padding: 10px 30px;
-    color: var(--var-green)
+	all: unset;
+	border: 1px dashed var(--var-green);
+	padding: 10px 30px;
+	color: var(--var-green);
 }
 
 button {
-    all: unset;
-    border: 1px dashed var(--var-green);
-    padding: 10px 30px;
-    margin-bottom: 30px;
+	all: unset;
+	border: 1px dashed var(--var-green);
+	padding: 10px 30px;
+	margin-bottom: 30px;
 }
 
 button:hover {
-    background-color: var(--var-green);
-    color: white;
+	background-color: var(--var-green);
+	color: white;
 }
 
 h1 {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 table {
-  border-collapse: collapse;
-  width: 100%;
+	border-collapse: collapse;
+	width: 100%;
 }
-td, th {
-  border: 1px var(--var-green) dashed;
-  padding: 8px;
-  text-align: center;
+td,
+th {
+	border: 1px var(--var-green) dashed;
+	padding: 8px;
+	text-align: center;
 }
 
 td:hover * {
-  background-color: var(--var-green);
-  color: white;
+	background-color: var(--var-green);
+	color: white;
 }
 
-td:hover, th:hover {
-  background-color: var(--var-green);
-  color: white;
+td:hover,
+th:hover {
+	background-color: var(--var-green);
+	color: white;
 }
 
 a {
-  text-decoration: none;
-  color: var(--var-green);
+	text-decoration: none;
+	color: var(--var-green);
 }
-

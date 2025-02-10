@@ -1,54 +1,51 @@
-{% extends 'base.html' %}
-
-{% block content %}
-    <h1>Food Menu</h1>
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th colspan="2">Actions</th>
-        </thead>
-        {% for f in foods %}
-        <tr>
-            <td>{{f.id}}</td>
-            <td>{{f.name}}</td>
-            <td>{{f.price}}</td>
-            <td>
-                <a href="food/edit/{{f.id}}">edit</a>
-            </td>
-            <td>
-                <a href="food/delete/{{f.id}}">delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br><br>
-    <a href="{% url 'add_food' %}"><button>Add Food</button></a>
-    <h1>Gadget Menu</h1>
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th colspan="2">Actions</th>
-        </thead>
-        {% for g in gadgets %}
-        <tr>
-            <td>{{g.id}}</td>
-            <td>{{g.name}}</td>
-            <td>{{g.price}}</td>
-            <td>
-                <a href="gadget/edit/{{g.id}}">edit</a>
-            </td>
-            <td>
-                <a href="gadget/delete/{{g.id}}">delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br><br>
-    <a href="{% url 'add_gadget' %}"><button>Add Gadget</button></a>
-
+{% extends 'base.html' %} {% block content %}
+<h1>Food Menu</h1>
+<table>
+	<thead>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Price</th>
+		<th colspan="2">Actions</th>
+	</thead>
+	{% for f in foods %}
+	<tr>
+		<td>{{f.id}}</td>
+		<td>{{f.name}}</td>
+		<td>{{f.price}}</td>
+		<td>
+			<a href="food/edit/{{f.id}}">edit</a>
+		</td>
+		<td>
+			<a href="food/delete/{{f.id}}">delete</a>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+<br /><br />
+<a href="{% url 'add_food' %}"><button>Add Food</button></a>
+<h1>Gadget Menu</h1>
+<table>
+	<thead>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Price</th>
+		<th colspan="2">Actions</th>
+	</thead>
+	{% for g in gadgets %}
+	<tr>
+		<td>{{g.id}}</td>
+		<td>{{g.name}}</td>
+		<td>{{g.price}}</td>
+		<td>
+			<a href="gadget/edit/{{g.id}}">edit</a>
+		</td>
+		<td>
+			<a href="gadget/delete/{{g.id}}">delete</a>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+<br /><br />
+<a href="{% url 'add_gadget' %}"><button>Add Gadget</button></a>
 
 {% endblock %}

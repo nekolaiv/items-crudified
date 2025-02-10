@@ -1,6 +1,7 @@
 from django import forms
 from .models import Food, Gadget
 
+
 class FoodForm(forms.ModelForm):
     class Meta:
         model = Food
