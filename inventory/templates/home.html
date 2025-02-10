@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    
-</head>
-<body class="container">
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>Food Menu</h1>
     <table>
         <thead>
@@ -25,10 +15,10 @@
             <td>{{f.name}}</td>
             <td>{{f.price}}</td>
             <td>
-                <a href="edit-food/{{f.id}}">edit</a>
+                <a href="food/edit/{{f.id}}">edit</a>
             </td>
             <td>
-                <a href="delete-food/{{f.id}}">delete</a>
+                <a href="food/delete/{{f.id}}">delete</a>
             </td>
         </tr>
         {% endfor %}
@@ -49,10 +39,10 @@
             <td>{{g.name}}</td>
             <td>{{g.price}}</td>
             <td>
-                <a href="edit-gadget/{{g.id}}">edit</a>
+                <a href="gadget/edit/{{g.id}}">edit</a>
             </td>
             <td>
-                <a href="delete-gadget/{{g.id}}">delete</a>
+                <a href="gadget/delete/{{g.id}}">delete</a>
             </td>
         </tr>
         {% endfor %}
@@ -60,6 +50,5 @@
     <br><br>
     <a href="{% url 'add_gadget' %}"><button>Add Gadget</button></a>
 
-    <script src="{% static 'js/script.js' %}"></script>
-</body>
-</html>
+
+{% endblock %}
