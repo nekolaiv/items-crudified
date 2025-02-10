@@ -22,10 +22,6 @@ db.sqlite3-journal
 *.so
 *.swp
 
-# Static & Media Files
-/static/
-media/
-
 # Local Environment Variables
 .env
 *.local
