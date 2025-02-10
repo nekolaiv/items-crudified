@@ -8,10 +8,11 @@ from .forms import FoodForm, GadgetForm
 
 class HomeListView(TemplateView):
     template_name = 'home.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['foods'] = Food.objects.all()  # Fetch all Food items
-        context['gadgets'] = Gadget.objects.all()  # Fetch all Gadget items
+        context['foods'] = Food.objects.all()
+        context['gadgets'] = Gadget.objects.all()
         return context
 
 
@@ -53,4 +54,3 @@ class GadgetDeleteView(DeleteView):
     model = Gadget
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('home')
-
