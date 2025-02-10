@@ -1,51 +1,120 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Food Menu</h1>
-<table>
-	<thead>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Price</th>
-		<th colspan="2">Actions</th>
-	</thead>
-	{% for f in foods %}
-	<tr>
-		<td>{{f.id}}</td>
-		<td>{{f.name}}</td>
-		<td>{{f.price}}</td>
-		<td>
-			<a href="food/edit/{{f.id}}">edit</a>
-		</td>
-		<td>
-			<a href="food/delete/{{f.id}}">delete</a>
-		</td>
-	</tr>
-	{% endfor %}
-</table>
-<br /><br />
-<a href="{% url 'add_food' %}"><button>Add Food</button></a>
-<h1>Gadget Menu</h1>
-<table>
-	<thead>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Price</th>
-		<th colspan="2">Actions</th>
-	</thead>
-	{% for g in gadgets %}
-	<tr>
-		<td>{{g.id}}</td>
-		<td>{{g.name}}</td>
-		<td>{{g.price}}</td>
-		<td>
-			<a href="gadget/edit/{{g.id}}">edit</a>
-		</td>
-		<td>
-			<a href="gadget/delete/{{g.id}}">delete</a>
-		</td>
-	</tr>
-	{% endfor %}
-</table>
-<br /><br />
-<a href="{% url 'add_gadget' %}"><button>Add Gadget</button></a>
+<section class="">
+	<h1>Food Menu</h1>
+	<div class="rounded-lg shadow border border-zinc-800">
+		<table class="w-full border-collapse">
+			<thead class="text-zinc-400">
+				<th class="py-3 w-24 transition duration-300 hover:bg-zinc-900">
+					ID
+				</th>
+				<th
+					class="py-3 flex-1 transition duration-300 hover:bg-zinc-900"
+				>
+					Name
+				</th>
+				<th class="py-3 w-56 transition duration-300 hover:bg-zinc-900">
+					Price
+				</th>
+				<th
+					class="py-3 w-12 transition duration-300 hover:bg-zinc-900"
+					colspan="2"
+				>
+					Actions
+				</th>
+			</thead>
+			{% for f in foods %}
+			<tr class="text-center border-t border-zinc-800">
+				<td class="py-3 transition duration-300 hover:bg-zinc-900">
+					{{f.id}}
+				</td>
+				<td class="py-3 transition duration-300 hover:bg-zinc-900">
+					{{f.name}}
+				</td>
+				<td class="py-3 transition duration-300 hover:bg-zinc-900">
+					{{f.price}}
+				</td>
+				<td class="py-3 w-28">
+					<a href="food/edit/{{f.id}}"
+						><button
+							class="w-20 p-px border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900"
+						>
+							edit
+						</button></a
+					>
+				</td>
+				<td class="py-3 w-28">
+					<a href="food/delete/{{f.id}}"
+						><button
+							class="w-20 p-px text-center border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900"
+						>
+							delete
+						</button></a
+					>
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+	<a href="{% url 'add_food' %}"><button>Add Food</button></a>
+	<div>
+		<h1>Gadget Menu</h1>
+		<table class="w-full border-collapse border border-zinc-800">
+			<thead class="text-zinc-400">
+				<th
+					class="border border-zinc-800 py-3 transition duration-300 hover:bg-zinc-900"
+				>
+					ID
+				</th>
+				<th
+					class="border border-zinc-800 py-3 transition duration-300 hover:bg-zinc-900"
+				>
+					Name
+				</th>
+				<th
+					class="border border-zinc-800 py-3 transition duration-300 hover:bg-zinc-900"
+				>
+					Price
+				</th>
+				<th
+					class="border border-zinc-800 py-3 max-w-[15px] transition duration-300 hover:bg-zinc-900"
+					colspan="2"
+				>
+					Actions
+				</th>
+			</thead>
+			{% for g in gadgets %}
+			<tr class="text-center">
+				<td
+					class="border border-zinc-800 py-3 transition duration-300 hover:bg-zinc-900"
+				>
+					{{g.id}}
+				</td>
+				<td
+					class="border border-zinc-800 py-3 transition duration-300 hover:bg-zinc-900"
+				>
+					{{g.name}}
+				</td>
+				<td
+					class="border border-zinc-800 py-3 transition duration-300 hover:bg-zinc-900"
+				>
+					{{g.price}}
+				</td>
+				<td
+					class="border border-zinc-800 py-3 max-w-[15px] transition duration-300 hover:bg-zinc-900"
+				>
+					<a href="gadget/edit/{{f.id}}">edit</a>
+				</td>
+				<td
+					class="border border-zinc-800 py-3 max-w-[15px] transition duration-300 hover:bg-zinc-900"
+				>
+					<a href="gadget/delete/{{f.id}}">delete</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<br /><br />
+		<a href="{% url 'add_gadget' %}"><button>Add Gadget</button></a>
+	</div>
+</section>
 
 {% endblock %}

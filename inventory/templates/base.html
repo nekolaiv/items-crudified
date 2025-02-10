@@ -1,25 +1,35 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{% block title %}My Django App{% endblock %}</title>
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 		<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+		<script>
+			tailwind.config = {
+				darkMode: "class",
+			};
+		</script>
 	</head>
-	<body class="bg-gray-100">
-		<!-- Navbar -->
-		<nav class="bg-blue-600 p-4 text-white">
-			<div class="container mx-auto">
-				<a href="/" class="text-lg font-bold">My Website</a>
-			</div>
-		</nav>
+	<body
+		class="min-h-screen max-w-screen flex flex-col bg-zinc-100 dark:bg-zinc-950 text-zinc-950 dark:text-zinc-300"
+	>
+		<header class="border border-red-700 py-2 relative min-w-screen">
+			<nav class="border border-red-700">
+				<ul class="flex justify-center items-center">
+					<li>
+						<a href="/" class="text-lg">Items Crudified</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
 
-		<!-- Page Content -->
-		<div class="container mx-auto mt-6">
+		<main class="border border-red-700 flex-grow-1 p-6">
 			{% block content %}{% endblock %}
-		</div>
+		</main>
 
-		<!-- Footer -->
 		<footer class="text-center p-4 mt-10 bg-gray-800 text-white">
 			© 2025 My Website - All Rights Reserved
 		</footer>
