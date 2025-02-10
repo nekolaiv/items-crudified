@@ -21,6 +21,11 @@ body::-webkit-scrollbar {
 	display: none; /* For Chrome, Safari, and Opera */
 }
 
+h1 {
+	font-size: 2rem;
+	margin-bottom: 10px;
+}
+
 /* body {
 	font-family: monospace;
 	background-color: black;
