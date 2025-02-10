@@ -3,8 +3,8 @@ from .views import FoodCreateView, FoodUpdateView, FoodDeleteView, GadgetCreateV
 
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
-    path('food/add', FoodCreateView.as_view(), name='add_food'),
-    path('gadget/add', GadgetCreateView.as_view(), name='add_gadget'),
+    path('food/add/', FoodCreateView.as_view(), name='add_food'),
+    path('gadget/add/', GadgetCreateView.as_view(), name='add_gadget'),
     path('food/edit/<int:pk>/', FoodUpdateView.as_view(), name='edit_food'),
     path('gadget/edit/<int:pk>/', GadgetUpdateView.as_view(), name='edit_food'),
     path('food/delete/<int:pk>/', FoodDeleteView.as_view(), name='food_delete'),
