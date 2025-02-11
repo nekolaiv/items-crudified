@@ -4,33 +4,43 @@
 	<div class="rounded-lg shadow border border-zinc-800">
 		<table class="w-full border-collapse">
 			<thead class="text-zinc-400">
-				<th class="py-3 w-24 transition duration-300 hover:bg-zinc-900">
+				<th
+					class="py-3 w-24 rounded-lg transition duration-300 hover:bg-zinc-900"
+				>
 					ID
 				</th>
 				<th
-					class="py-3 flex-1 transition duration-300 hover:bg-zinc-900"
+					class="py-3 rounded-lg flex-1 transition duration-300 hover:bg-zinc-900"
 				>
 					Name
 				</th>
-				<th class="py-3 w-56 transition duration-300 hover:bg-zinc-900">
+				<th
+					class="py-3 rounded-lg w-56 transition duration-300 hover:bg-zinc-900"
+				>
 					Price
 				</th>
 				<th
-					class="py-3 w-12 transition duration-300 hover:bg-zinc-900"
+					class="py-3 rounded-lg w-12 transition duration-300 hover:bg-zinc-900"
 					colspan="2"
 				>
 					Actions
 				</th>
 			</thead>
 			{% for f in foods %}
-			<tr class="text-center border-t border-zinc-800">
-				<td class="py-3 transition duration-300 hover:bg-zinc-900">
+			<tr class="text-center border-t dark:border-zinc-800">
+				<td
+					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
+				>
 					{{f.id}}
 				</td>
-				<td class="py-3 transition duration-300 hover:bg-zinc-900">
+				<td
+					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
+				>
 					{{f.name}}
 				</td>
-				<td class="py-3 transition duration-300 hover:bg-zinc-900">
+				<td
+					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
+				>
 					{{f.price}}
 				</td>
 				<td class="py-3 w-28">
@@ -67,19 +77,23 @@
 	<div class="rounded-lg shadow border border-zinc-800">
 		<table class="w-full border-collapse">
 			<thead class="text-zinc-400">
-				<th class="py-3 w-24 transition duration-300 hover:bg-zinc-900">
+				<th
+					class="py-3 w-24 rounded-lg transition duration-300 hover:bg-zinc-900"
+				>
 					ID
 				</th>
 				<th
-					class="py-3 flex-1 transition duration-300 hover:bg-zinc-900"
+					class="py-3 rounded-lg flex-1 transition duration-300 hover:bg-zinc-900"
 				>
 					Name
 				</th>
-				<th class="py-3 w-56 transition duration-300 hover:bg-zinc-900">
+				<th
+					class="py-3 w-56 rounded-lg transition duration-300 hover:bg-zinc-900"
+				>
 					Price
 				</th>
 				<th
-					class="py-3 w-12 transition duration-300 hover:bg-zinc-900"
+					class="py-3 w-12 rounded-lg transition duration-300 hover:bg-zinc-900"
 					colspan="2"
 				>
 					Actions
@@ -87,13 +101,19 @@
 			</thead>
 			{% for g in gadgets %}
 			<tr class="text-center border-t border-zinc-800">
-				<td class="py-3 transition duration-300 hover:bg-zinc-900">
+				<td
+					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
+				>
 					{{g.id}}
 				</td>
-				<td class="py-3 transition duration-300 hover:bg-zinc-900">
+				<td
+					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
+				>
 					{{g.name}}
 				</td>
-				<td class="py-3 transition duration-300 hover:bg-zinc-900">
+				<td
+					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
+				>
 					{{g.price}}
 				</td>
 				<td class="py-3 w-28">
