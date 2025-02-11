@@ -1,68 +1,85 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %} {% load static %}
 <section class="flex flex-col">
 	<h2>FOOD MENU</h2>
+	<input
+		type="text"
+		id="search"
+		placeholder="Search..."
+		class="w-full p-2 mb-4 border border-zinc-800 rounded-lg bg-zinc-900 text-white"
+	/>
+
 	<div class="rounded-lg shadow border border-zinc-800">
 		<table class="w-full border-collapse">
 			<thead class="text-zinc-400">
-				<th
-					class="py-3 w-24 rounded-lg transition duration-300 hover:bg-zinc-900"
-				>
-					ID
-				</th>
-				<th
-					class="py-3 rounded-lg flex-1 transition duration-300 hover:bg-zinc-900"
-				>
-					Name
-				</th>
-				<th
-					class="py-3 rounded-lg w-56 transition duration-300 hover:bg-zinc-900"
-				>
-					Price
-				</th>
-				<th
-					class="py-3 rounded-lg w-12 transition duration-300 hover:bg-zinc-900"
-					colspan="2"
-				>
-					Actions
-				</th>
+				<tr>
+					<th
+						class="py-3 w-24 rounded-lg transition duration-300 hover:bg-zinc-900"
+					>
+						ID
+					</th>
+					<th
+						class="py-3 rounded-lg flex-1 transition duration-300 hover:bg-zinc-900"
+					>
+						Name
+					</th>
+					<th
+						class="py-3 rounded-lg w-56 transition duration-300 hover:bg-zinc-900"
+					>
+						Price
+					</th>
+					<th
+						class="py-3 rounded-lg w-12 transition duration-300 hover:bg-zinc-900"
+						colspan="2"
+					>
+						Actions
+					</th>
+				</tr>
 			</thead>
-			{% for f in foods %}
-			<tr class="text-center border-t dark:border-zinc-800">
-				<td
-					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
-				>
-					{{f.id}}
-				</td>
-				<td
-					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
-				>
-					{{f.name}}
-				</td>
-				<td
-					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
-				>
-					{{f.price}}
-				</td>
-				<td class="py-3 w-28">
-					<a href="food/edit/{{f.id}}"
-						><button
-							class="w-20 p-px cursor-pointer border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900"
-						>
-							edit
-						</button></a
+			<tbody id="foods-table">
+				{% for f in foods %}
+				<tr class="text-center border-t dark:border-zinc-800">
+					<td
+						class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
 					>
-				</td>
-				<td class="py-3 w-28">
-					<a href="food/delete/{{f.id}}"
-						><button
-							class="w-20 p-px cursor-pointer text-center border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900"
-						>
-							delete
-						</button></a
+						{{ f.id }}
+					</td>
+					<td
+						class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
 					>
-				</td>
-			</tr>
-			{% endfor %}
+						{{ f.name }}
+					</td>
+					<td
+						class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
+					>
+						{{ f.price }}
+					</td>
+					<td class="py-3 w-28">
+						<a href="food/edit/{{ f.id }}">
+							<button
+								class="w-20 p-px cursor-pointer border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900"
+							>
+								edit
+							</button>
+						</a>
+					</td>
+					<td class="py-3 w-28">
+						<a href="food/delete/{{ f.id }}">
+							<button
+								class="w-20 p-px cursor-pointer border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900"
+							>
+								delete
+							</button>
+						</a>
+					</td>
+				</tr>
+				{% empty %}
+				<tr id="no-results">
+					<td colspan="5" class="py-3 text-center text-zinc-400">
+						No results found
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 	<a href="food/add/" class="w-fit mt-2"
@@ -72,79 +89,10 @@
 			Add Food
 		</button></a
 	>
-	<br /><br />
-	<h2>GADGET MENU</h2>
-	<div class="rounded-lg shadow border border-zinc-800">
-		<table class="w-full border-collapse">
-			<thead class="text-zinc-400">
-				<th
-					class="py-3 w-24 rounded-lg transition duration-300 hover:bg-zinc-900"
-				>
-					ID
-				</th>
-				<th
-					class="py-3 rounded-lg flex-1 transition duration-300 hover:bg-zinc-900"
-				>
-					Name
-				</th>
-				<th
-					class="py-3 w-56 rounded-lg transition duration-300 hover:bg-zinc-900"
-				>
-					Price
-				</th>
-				<th
-					class="py-3 w-12 rounded-lg transition duration-300 hover:bg-zinc-900"
-					colspan="2"
-				>
-					Actions
-				</th>
-			</thead>
-			{% for g in gadgets %}
-			<tr class="text-center border-t border-zinc-800">
-				<td
-					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
-				>
-					{{g.id}}
-				</td>
-				<td
-					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
-				>
-					{{g.name}}
-				</td>
-				<td
-					class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900"
-				>
-					{{g.price}}
-				</td>
-				<td class="py-3 w-28">
-					<a href="gadget/edit/{{f.id}}"
-						><button
-							class="w-20 p-px cursor-pointer border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900"
-						>
-							edit
-						</button></a
-					>
-				</td>
-				<td class="py-3 w-28">
-					<a href="gadget/delete/{{f.id}}"
-						><button
-							class="w-20 p-px cursor-pointer text-center border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900"
-						>
-							delete
-						</button></a
-					>
-				</td>
-			</tr>
-			{% endfor %}
-		</table>
-	</div>
-	<a href="gadget/add/" class="w-fit mt-2"
-		><button
-			class="w-40 p-2 text-center cursor-pointer border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900"
-		>
-			Add Gadget
-		</button></a
-	>
 </section>
+<script>
+	const searchUrl = "{% url 'home' %}";
+</script>
+<script src="{% static 'js/scripts.js' %}"></script>
 
 {% endblock %}
