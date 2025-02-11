@@ -17,8 +17,8 @@
 	<body
 		class="min-h-screen max-w-screen flex flex-col bg-zinc-100 dark:bg-zinc-950 text-zinc-950 dark:text-zinc-300"
 	>
-		<header class="border border-red-700 p-4 relative min-w-screen">
-			<nav class="border border-red-700">
+		<header class="p-4 relative min-w-screen">
+			<nav class="">
 				<ul class="flex justify-center items-center">
 					<li>
 						<a href="/" class="text-lg"><h1>Items Crudified</h1></a>
@@ -27,12 +27,12 @@
 			</nav>
 		</header>
 
-		<main class="border border-red-700 flex-grow-1 p-6">
+		<main class="flex-grow-1 p-6">
 			{% block content %}{% endblock %}
 		</main>
 
 		<footer
-			class="text-center p-4 bg-zinc-100 dark:bg-zinc-950 text-zinc-950 dark:text-zinc-300 border border-red-700"
+			class="text-center p-4 bg-zinc-100 dark:bg-zinc-950 text-zinc-950 dark:text-zinc-300 
 		>
 			© 2025 Nekolaiv.Dev - All Rights Reserved
 		</footer>
