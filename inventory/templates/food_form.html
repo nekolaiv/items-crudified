@@ -1,48 +1,48 @@
 {% extends 'base.html' %} {% block content %}
 <div
-	class="max-w-lg bg-zinc-100 dark:bg-zinc-950 border dark:border-zinc-800 p-6 rounded-lg shadow-lg mx-auto mt-12"
+  class="mx-auto mt-12 max-w-lg rounded-lg border bg-zinc-100 p-6 shadow-lg dark:border-zinc-800 dark:bg-zinc-950"
 >
-	<h2 class="text-2xl font-bold mb-4 text-center">
-		{% if object %}Edit{% else %}Add{% endif %} Food
-	</h2>
+  <h2 class="mb-4 text-center text-2xl font-bold">
+    {% if object %}Edit{% else %}Add{% endif %} Food
+  </h2>
 
-	<form method="post" class="space-y-4">
-		{% csrf_token %}
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
 
-		<div>
-			<label
-				for="{{ form.name.id_for_label }}"
-				class="block text-zinc-200 font-medium"
-				>Food Name</label
-			>
-			{{ form.name }}
-		</div>
+    <div>
+      <label
+        for="{{ form.name.id_for_label }}"
+        class="block font-medium text-zinc-200"
+        >Food Name</label
+      >
+      {{ form.name }}
+    </div>
 
-		<div>
-			<label
-				for="{{ form.price.id_for_label }}"
-				class="block text-zinc-200 font-medium"
-				>Price</label
-			>
-			{{ form.price }}
-		</div>
+    <div>
+      <label
+        for="{{ form.price.id_for_label }}"
+        class="block font-medium text-zinc-200"
+        >Price</label
+      >
+      {{ form.price }}
+    </div>
 
-		<div class="flex justify-center gap-2 w-full">
-			<button
-				type="submit"
-				class="w-[50%] bg-zinc-100 dark:bg-zinc-950 border border-zinc-800 text-white py-2 rounded-lg hover:bg-zinc-900"
-			>
-				{% if object %}Update{% else %}Add{% endif %} Food
-			</button>
-			<a href="{% url 'home' %}" class="w-[50%]"
-				><button
-					type="button"
-					class="w-[100%] p-2 text-center cursor-pointer border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900"
-				>
-					Cancel
-				</button></a
-			>
-		</div>
-	</form>
+    <div class="flex w-full justify-center gap-2">
+      <button
+        type="submit"
+        class="w-[50%] rounded-lg border border-zinc-800 bg-zinc-100 py-2 text-white hover:bg-zinc-900 dark:bg-zinc-950"
+      >
+        {% if object %}Update{% else %}Add{% endif %} Food
+      </button>
+      <a href="{% url 'home' %}" class="w-[50%]"
+        ><button
+          type="button"
+          class="w-[100%] cursor-pointer rounded-lg border border-zinc-800 p-2 text-center transition duration-300 hover:bg-zinc-900"
+        >
+          Cancel
+        </button></a
+      >
+    </div>
+  </form>
 </div>
 {% endblock %}
