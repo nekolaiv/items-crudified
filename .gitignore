@@ -10,6 +10,7 @@ env/
 ENV/
 pip-log.txt
 pip-delete-this-directory.txt
+pipfile.lock
 
 # Django
 *.log
@@ -61,3 +62,8 @@ coverage.xml
 
 # Docker (if using Docker)
 docker-compose.override.yml
+
+
+# Node.js
+node_modules
+package-lock.json
