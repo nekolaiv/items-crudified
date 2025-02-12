@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
-<section class="flex flex-col">
+<div class="flex flex-col max-h-full px-6">
 	<h2>FOOD MENU</h2>
 	<input
 		type="text"
@@ -89,7 +89,7 @@
 			Add Food
 		</button></a
 	>
-</section>
+</div>
 <script>
 	const searchUrl = "{% url 'home' %}";
 </script>
