@@ -18,9 +18,11 @@
         class="max-w-screen flex max-h-screen min-h-screen overflow-hidden bg-zinc-100 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-300"
     >
         <aside
-            class="bg-zinc-00 flex h-screen max-h-screen w-60 min-w-60 max-w-60 flex-col"
+            class="flex h-screen max-h-screen w-60 min-w-60 max-w-60 flex-col border border-red-700 bg-zinc-900"
         >
-            <header class="max-w-screen relative max-h-screen px-6 py-2">
+            <header
+                class="max-w-screen relative max-h-screen border border-blue-700 px-6 py-2"
+            >
                 <nav class="">
                     <ul class="flex items-center justify-start">
                         <li>
@@ -31,8 +33,8 @@
                     </ul>
                 </nav>
             </header>
-            <div class="h-full p-4">
-                <div class="">
+            <div class="h-full border border-green-700 p-4">
+                <div class="border border-yellow-700">
                     <h6>Tables List</h6>
                     <ul>
                         {% for table in tables %}
