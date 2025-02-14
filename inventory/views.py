@@ -83,7 +83,7 @@ class ItemCreateView(CreateView):
         return context
 
     def get_success_url(self):
-        return reverse("home") + f"?table_id={self.kwargs['table_id']}"
+        return reverse("table_view") + f"?table_id={self.kwargs['table_id']}"
 
 
 class ItemUpdateView(UpdateView):
