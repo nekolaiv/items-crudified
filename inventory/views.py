@@ -38,12 +38,12 @@ class TableAndItemView(ListView):
     def get(self, request, *args, **kwargs):
         """Handles AJAX search filtering and normal GET requests."""
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            table_id = request.GET.get('table_id')
+            # table_id = request.GET.get('table_id')
             query = request.GET.get('q', '').strip()
 
-            if table_id and query:
-                selected_table = get_object_or_404(Table, id=table_id)
-                items = list(selected_table.items.filter(
+            if query:
+                # selected_table = get_object_or_404(Table, id=table_id)
+                items = list(Item.objects.filter(
                     name__icontains=query).values('id', 'name', 'price'))
                 return JsonResponse({'items': items})
 
