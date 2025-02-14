@@ -38,7 +38,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody id="foods-table">
+            <tbody id="items-table">
                 {% for i in items %}
                 <tr class="border-t text-center dark:border-zinc-800">
                     <td
@@ -66,7 +66,7 @@
                         </a>
                     </td>
                     <td class="w-28 py-3">
-                        <a href="items/{{i.id}}//">
+                        <a href="items/{{i.id}}/delete/">
                             <button
                                 class="w-20 cursor-pointer rounded-lg border border-zinc-800 p-px transition duration-300 hover:bg-zinc-900"
                             >
