@@ -18,39 +18,38 @@
         class="max-w-screen flex max-h-screen min-h-screen overflow-hidden bg-zinc-100 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-300"
     >
         <aside
-            class="flex h-screen max-h-screen w-60 min-w-60 max-w-60 flex-col border border-red-700 bg-zinc-900"
+            class="flex h-screen max-h-screen w-60 min-w-60 max-w-60 flex-col bg-zinc-900"
         >
             <header
-                class="max-w-screen relative max-h-screen border border-blue-700 px-6 py-2"
+                class="max-w-screen relative flex max-h-screen items-center justify-start px-6 py-4"
             >
-                <nav class="">
-                    <ul class="flex items-center justify-start">
-                        <li>
-                            <a href="/" class="text-lg"
-                                ><h1>Items Crudified</h1></a
-                            >
-                        </li>
-                    </ul>
-                </nav>
+                <h1>TABLES LIST</h1>
             </header>
-            <div class="h-full border border-green-700 p-4">
-                <div class="border border-yellow-700">
-                    <h6>Tables List</h6>
-                    <ul>
-                        {% for table in tables %}
-                        <li>
-                            <a
-                                href="?table_id={{ table.id }}"
-                                class="{% if table.id == selected_table.id %}active{% endif %}"
+            <div class="flex-grow px-4">
+                <ul class="flex flex-col gap-2">
+                    {% for table in tables %}
+                    <li>
+                        <a
+                            href="?table_id={{ table.id }}"
+                            class="{% if table.id == selected_table.id %}active{% endif %}"
+                        >
+                            <button
+                                class="w-full cursor-pointer rounded-lg border border-zinc-800 px-4 py-2 text-left transition duration-300 hover:bg-zinc-800"
                             >
                                 {{ table.name }}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    <a href="{% url 'table_create' %}">+ Create Table</a>
-                </div>
+                            </button>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
+            <footer class="px-4 py-6">
+                <button
+                    class="w-full cursor-pointer rounded-lg px-4 py-2 text-left transition duration-300 hover:bg-zinc-800"
+                >
+                    <a href="{% url 'table_create' %}">+ Create Table</a>
+                </button>
+            </footer>
         </aside>
         <main class="flex max-h-screen w-full flex-col overflow-hidden">
             <header class="max-w-screen relative px-6 py-2">
