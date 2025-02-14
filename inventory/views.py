@@ -47,8 +47,6 @@ class TableAndItemView(ListView):
                     name__icontains=query).values('id', 'name', 'price'))
                 return JsonResponse({'items': items})
 
-            return JsonResponse({'items': []})  # Return empty if no query
-
         return super().get(request, *args, **kwargs)  # Normal page load
 
 
