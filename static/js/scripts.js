@@ -12,7 +12,7 @@ $(document).ready(function () {
             data: { q: query },
             dataType: "json",
             success: function (response) {
-                let rowsHtml = response.foods.length
+                let rowsHtml = response.items.length
                     ? ""
                     : `<tr id="no-results"><td colspan="5" class="py-3 text-center text-zinc-400">No results found</td></tr>`;
 
