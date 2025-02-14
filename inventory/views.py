@@ -10,12 +10,12 @@ from .forms import ItemForm, TableForm
 # -------------------- TABLE VIEWS --------------------
 
 class TableAndItemView(ListView):
-    model = Table  # Base model to allow ListView usage
-    template_name = "home.html"
+    model = Table
+    template_name = "table_view.html"
     context_object_name = "tables"
 
     def get_queryset(self):
-        return Table.objects.all()  # Get all tables for the aside section
+        return Table.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -44,21 +44,25 @@ class TableAndItemView(ListView):
 
 class TableCreateView(CreateView):
     model = Table
-    template_name = TableForm
-    fields = ["name"]
-    success_url = reverse_lazy("table_list")
+    form_class = TableForm
+    template_name = "table_form.html"
+    success_url = reverse_lazy("table_view")
 
-
-# class TableDetailView(DetailView):
-#     model = Table
-#     template_name = "tables/table_detail.html"
-#     context_object_name = "table"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tables"] = Table.objects.all()
+        return context
 
 
 class TableDeleteView(DeleteView):
     model = Table
     template_name = "confirm_delete.html"
-    success_url = reverse_lazy("table_list")
+    success_url = reverse_lazy("table_")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tables"] = Table.objects.all()
+        return context
 
 # -------------------- ITEM VIEWS --------------------
 
@@ -73,6 +77,11 @@ class ItemCreateView(CreateView):
             Table, id=self.kwargs["table_id"])
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tables"] = Table.objects.all()
+        return context
+
     def get_success_url(self):
         return reverse("home") + f"?table_id={self.kwargs['table_id']}"
 
@@ -83,6 +92,11 @@ class ItemUpdateView(UpdateView):
     template_name = "item_form.html"
     fields = ["name", "description", "price"]
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tables"] = Table.objects.all()
+        return context
+
     def get_success_url(self):
         return reverse_lazy("item_list", kwargs={"table_id": self.object.table.id})
 
@@ -90,6 +104,11 @@ class ItemUpdateView(UpdateView):
 class ItemDeleteView(DeleteView):
     model = Item
     template_name = "confirm_delete.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tables"] = Table.objects.all()
+        return context
 
     def get_success_url(self):
         return reverse_lazy("item_list", kwargs={"table_id": self.object.table.id})
