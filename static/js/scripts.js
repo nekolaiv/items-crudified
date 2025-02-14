@@ -16,31 +16,47 @@ $(document).ready(function () {
                     ? ""
                     : `<tr id="no-results"><td colspan="5" class="py-3 text-center text-zinc-400">No results found</td></tr>`;
 
-                $.each(response.foods, function (index, food) {
+                $.each(response.items, function (index, item) {
                     rowsHtml += `
-                        <tr class="text-center border-t dark:border-zinc-800">
-                            <td class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900">${food.id}</td>
-                            <td class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900">${food.name}</td>
-                            <td class="py-3 rounded-lg transition duration-300 hover:bg-zinc-900">${food.price}</td>
-                            <td class="py-3 w-28">
-                                <a href="food/edit/${food.id}">
-                                    <button class="w-20 p-px cursor-pointer border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900">
-                                        edit
-                                    </button>
-                                </a>
-                            </td>
-                            <td class="py-3 w-28">
-                                <a href="food/delete/${food.id}">
-                                    <button class="w-20 p-px cursor-pointer border border-zinc-800 rounded-lg transition duration-300 hover:bg-zinc-900">
-                                        delete
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
+                        <tr class="border-t text-center dark:border-zinc-800">
+                    <td
+                        class="rounded-lg py-3 transition duration-300 hover:bg-zinc-900"
+                    >
+                        ${item.id}
+                    </td>
+                    <td
+                        class="rounded-lg py-3 transition duration-300 hover:bg-zinc-900"
+                    >
+                        ${item.name}
+                    </td>
+                    <td
+                        class="rounded-lg py-3 transition duration-300 hover:bg-zinc-900"
+                    >
+                    ${item.price}
+                    </td>
+                    <td class="w-28 py-3">
+                        <a href="items/${item.id}/edit/">
+                            <button
+                                class="w-20 cursor-pointer rounded-lg border border-zinc-800 p-px transition duration-300 hover:bg-zinc-900"
+                            >
+                                edit
+                            </button>
+                        </a>
+                    </td>
+                    <td class="w-28 py-3">
+                        <a href="items/${item.id}/delete/">
+                            <button
+                                class="w-20 cursor-pointer rounded-lg border border-zinc-800 p-px transition duration-300 hover:bg-zinc-900"
+                            >
+                                delete
+                            </button>
+                        </a>
+                    </td>
+                </tr>
                     `;
                 });
 
-                $("#foods-table").html(rowsHtml);
+                $("#items-table").html(rowsHtml);
             },
         });
     });
