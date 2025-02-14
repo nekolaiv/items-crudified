@@ -4,7 +4,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path("", TableAndItemView.as_view(), name="home"),
+    path("", TableAndItemView.as_view(), name="table_view"),
     path("tables/new/", TableCreateView.as_view(), name="table_create"),
     path("tables/<int:table_id>/items/add/",
          ItemCreateView.as_view(), name="item_create"),
