@@ -7,9 +7,11 @@ $(document).ready(function () {
     }
     $("#search").on("keyup", function () {
         let query = $(this).val().trim();
+        let currentUrl = new URL(window.location.href);
+        let tableId = currentUrl.searchParams.get("table_id"); // Get table_id from UR
         $.ajax({
             url: searchUrl,
-            data: { q: query },
+            data: { q: query, table_id: tableId }, // Ensure table_id is sent
             dataType: "json",
             success: function (response) {
                 let rowsHtml = response.items.length

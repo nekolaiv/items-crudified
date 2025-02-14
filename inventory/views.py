@@ -19,11 +19,9 @@ class TableAndItemView(ListView):
     context_object_name = "tables"
 
     def get_queryset(self):
-        """Fetch all tables to be listed in the aside section."""
         return Table.objects.all()
 
     def get_context_data(self, **kwargs):
-        """Prepare context data for rendering the selected table and its items."""
         context = super().get_context_data(**kwargs)
 
         table_id = self.request.GET.get("table_id")
@@ -32,20 +30,22 @@ class TableAndItemView(ListView):
         items = selected_table.items.all() if selected_table else None
 
         context["selected_table"] = selected_table
-        context["items"] = items  # Items belonging to the selected table
+        context["items"] = items
         return context
 
     def get(self, request, *args, **kwargs):
-        """Handles AJAX search filtering and normal GET requests."""
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            # table_id = request.GET.get('table_id')
+            table_id = request.GET.get('table_id')
             query = request.GET.get('q', '').strip()
 
-            if query:
-                # selected_table = get_object_or_404(Table, id=table_id)
-                items = list(Item.objects.filter(
-                    name__icontains=query).values('id', 'name', 'price'))
-                return JsonResponse({'items': items})
+            selected_table = get_object_or_404(Table, id=table_id)
+            items = selected_table.items.all()
+
+            if query:  # Apply search filter only if query exists
+                items = items.filter(name__icontains=query)
+
+            items_list = list(items.values('id', 'name', 'price'))
+            return JsonResponse({'items': items_list})
 
         return super().get(request, *args, **kwargs)  # Normal page load
 
