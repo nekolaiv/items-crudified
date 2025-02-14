@@ -38,19 +38,17 @@
                     <h6>Tables List</h6>
                     <ul>
                         {% for table in tables %}
-                        <!-- <li><a href="{% url 'table' table.id %}">{{ table.name }}</a></li> -->
                         <li>
-                            <a href="{% url 'table' table.id %}"
-                                ><button
-                                    class="w-20 cursor-pointer rounded-lg border border-zinc-800 p-px transition duration-300 hover:bg-zinc-900"
-                                >
-                                    {{table.name}}
-                                </button></a
+                            <a
+                                href="?table_id={{ table.id }}"
+                                class="{% if table.id == selected_table.id %}active{% endif %}"
                             >
+                                {{ table.name }}
+                            </a>
                         </li>
                         {% endfor %}
                     </ul>
-                    <!-- <a href="">+ Create Table</a> -->
+                    <a href="url 'table_create">+ Create Table</a>
                 </div>
             </div>
         </aside>
