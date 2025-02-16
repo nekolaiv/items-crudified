@@ -57,7 +57,9 @@
                         {{ i.price }}
                     </td>
                     <td class="w-28 py-3">
-                        <a href="items/{{i.id}}/edit/">
+                        <a
+                            href="tables/{{ selected_table.id }}/items/{{ i.id }}/edit/"
+                        >
                             <button
                                 class="w-20 cursor-pointer rounded-lg border border-zinc-800 p-px transition duration-300 hover:bg-zinc-900"
                             >
@@ -66,7 +68,9 @@
                         </a>
                     </td>
                     <td class="w-28 py-3">
-                        <a href="items/{{i.id}}/delete/">
+                        <a
+                            href="tables/{{ selected_table.id }}/items/{{ i.id }}/delete/"
+                        >
                             <button
                                 class="w-20 cursor-pointer rounded-lg border border-zinc-800 p-px transition duration-300 hover:bg-zinc-900"
                             >
@@ -96,9 +100,7 @@
     <h2>Select a table from the left</h2>
     {% endif %}
 </div>
-<script>
-    const searchUrl = "{% url 'table_view' %}";
-</script>
+<script></script>
 <script src="{% static 'js/scripts.js' %}"></script>
 
 {% endblock %}
