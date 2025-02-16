@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from .models import Item, Table
 from .forms import ItemForm, TableForm
@@ -41,13 +41,13 @@ class TableAndItemView(ListView):
             selected_table = get_object_or_404(Table, id=table_id)
             items = selected_table.items.all()
 
-            if query:  # Apply search filter only if query exists
+            if query:
                 items = items.filter(name__icontains=query)
 
             items_list = list(items.values('id', 'name', 'price'))
             return JsonResponse({'items': items_list})
 
-        return super().get(request, *args, **kwargs)  # Normal page load
+        return super().get(request, *args, **kwargs)
 
 
 class TableCreateView(CreateView):
@@ -98,11 +98,12 @@ class ItemUpdateView(UpdateView):
     model = Item
     form_class = ItemForm
     template_name = "item_form.html"
-    fields = ["name", "description", "price"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.all()
+        context["previous_url"] = self.request.META.get(
+            'HTTP_REFERER', reverse_lazy('post:list'))
         return context
 
     def get_success_url(self):

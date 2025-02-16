@@ -34,9 +34,11 @@
             >
                 {% if object %}Update{% else %}Add{% endif %} Item
             </button>
-            <a href="{% url 'table_view' %}" class="w-[50%]"
+            <a href="{{ previous_url }}" class="w-[50%]"
                 ><button
-                    type="button"
+                    type="submit"
+                    name="cancel"
+                    value="true"
                     class="w-[100%] cursor-pointer rounded-lg border border-zinc-800 p-2 text-center transition duration-300 hover:bg-zinc-900"
                 >
                     Cancel
