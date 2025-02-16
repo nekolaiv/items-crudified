@@ -99,15 +99,18 @@ class ItemUpdateView(UpdateView):
     form_class = ItemForm
     template_name = "item_form.html"
 
+    def form_valid(self, form):
+        form.instance.table = get_object_or_404(
+            Table, id=self.kwargs["table_id"])
+        return super().form_valid(form)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.all()
-        context["previous_url"] = self.request.META.get(
-            'HTTP_REFERER', reverse_lazy('post:list'))
         return context
 
     def get_success_url(self):
-        return reverse_lazy("item_list", kwargs={"table_id": self.object.table.id})
+        return reverse("table_view") + f"?table_id={self.kwargs['table_id']}"
 
 
 class ItemDeleteView(DeleteView):
@@ -120,4 +123,4 @@ class ItemDeleteView(DeleteView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy("item_list", kwargs={"table_id": self.object.table.id})
+        return reverse("table_view") + f"?table_id={self.kwargs['table_id']}"
