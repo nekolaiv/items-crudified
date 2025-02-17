@@ -1,7 +1,29 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 <div class="flex max-h-full flex-col px-6">
     {% if selected_table %}
-    <h2>{{ selected_table.name }}</h2>
+    <div class="flex items-center justify-between border border-red-700">
+        <h2>{{ selected_table.name }}</h2>
+        <div class="">
+            <a
+                href="tables/{{ selected_table.id }}/table/edit/"
+                class="mt-2 w-fit"
+                ><button
+                    class="w-40 cursor-pointer rounded-lg border border-zinc-800 p-2 text-center transition duration-300 hover:bg-zinc-900"
+                >
+                    Edit Table
+                </button></a
+            >
+            <a
+                href="tables/{{ selected_table.id }}/table/delete/"
+                class="mt-2 w-fit"
+                ><button
+                    class="w-40 cursor-pointer rounded-lg border border-zinc-800 p-2 text-center transition duration-300 hover:bg-zinc-900"
+                >
+                    Delete Table
+                </button></a
+            >
+        </div>
+    </div>
     <input
         type="text"
         id="search"
@@ -93,7 +115,7 @@
         ><button
             class="w-40 cursor-pointer rounded-lg border border-zinc-800 p-2 text-center transition duration-300 hover:bg-zinc-900"
         >
-            Add Food
+            Add Item
         </button></a
     >
     {% else %}
