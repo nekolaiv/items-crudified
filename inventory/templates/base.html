@@ -44,12 +44,24 @@
                     {% endfor %}
                 </ul>
             </div>
-            <footer class="px-4 py-6">
-                <button
-                    class="w-full cursor-pointer rounded-lg px-4 py-2 text-left transition duration-300 hover:bg-zinc-800"
+            <footer
+                class="flex flex-col items-center justify-between px-4 py-6"
+            >
+                <a href="{% url 'table_create' %}"
+                    ><button
+                        class="w-40 cursor-pointer rounded-lg border border-zinc-800 p-2 text-center transition duration-300 hover:bg-zinc-800"
+                    >
+                        + Create a Table
+                    </button></a
                 >
-                    <a href="{% url 'table_create' %}">+ Create Table</a>
-                </button>
+
+                <a href="{% url 'truncate_tables' %}" class="mt-2 w-fit"
+                    ><button
+                        class="w-40 cursor-pointer rounded-lg border border-zinc-800 p-2 text-center transition duration-300 hover:bg-zinc-800"
+                    >
+                        Delete All Tables
+                    </button></a
+                >
             </footer>
         </aside>
         <main class="flex max-h-screen w-full flex-col overflow-hidden">

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    TableAndItemView, TableCreateView, ItemCreateView, ItemUpdateView, ItemDeleteView, TableDeleteView, TableUpdateView
+    TableAndItemView, TableCreateView, ItemCreateView, ItemUpdateView, ItemDeleteView, TableDeleteView, TableUpdateView, TruncateItemView, TruncateTableView
 )
 
 urlpatterns = [
@@ -17,4 +17,7 @@ urlpatterns = [
          ItemUpdateView.as_view(), name="item_update"),
     path("tables/<int:table_id>/items/<int:pk>/delete/",
          ItemDeleteView.as_view(), name="item_delete"),
+
+    path("tables/truncate/", TruncateTableView.as_view(), name="truncate_tables"),
+    path("items/truncate/", TruncateItemView.as_view(), name="truncate_items"),
 ]

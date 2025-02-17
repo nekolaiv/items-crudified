@@ -167,21 +167,48 @@ class ItemDeleteView(DeleteView):
         return reverse("table_view") + f"?table_id={self.kwargs['table_id']}"
 
 
+# -------------------- ITEM VIEWS --------------------
+
+
 class TruncateTableView(View):
     template_name = "confirm_truncate.html"
 
     def get(self, request):
-        """Render confirmation page."""
         return render(request, self.template_name, {"object_type": "tables"})
 
     def post(self, request):
-        """Handle the truncate request."""
         if "confirm" in request.POST:
-            # Delete related items first, if any
             Item.objects.filter(table__isnull=False).delete()
-            # Now delete all tables
             Table.objects.all().delete()
-            # Redirect to table list after truncation
             return redirect(reverse("table_view"))
 
-        return redirect(reverse("table_view"))  # Redirect if canceled
+        return redirect(reverse("table_view"))
+
+
+class TruncateTableView(View):
+    template_name = "confirm_truncate.html"
+
+    def get(self, request):
+        return render(request, self.template_name, {"object_type": "tables"})
+
+    def post(self, request):
+        if "confirm" in request.POST:
+            Item.objects.filter(table__isnull=False).delete()
+            Table.objects.all().delete()
+            return redirect(reverse("table_view"))
+
+        return redirect(reverse("table_view"))
+
+
+class TruncateItemView(View):
+    template_name = "confirm_truncate.html"
+
+    def get(self, request):
+        return render(request, self.template_name, {"object_type": "items"})
+
+    def post(self, request):
+        if "confirm" in request.POST:
+            Item.objects.all().delete()
+            return redirect(reverse("table_view"))
+
+        return redirect(reverse("table_view"))
