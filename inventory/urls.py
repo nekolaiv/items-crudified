@@ -11,6 +11,7 @@ urlpatterns = [
     path("tables/<int:pk>/table/delete/",
          TableDeleteView.as_view(), name="table_delete"),
     path("tables/<int:table_id>/items/add/",
+
          ItemCreateView.as_view(), name="item_create"),
     path("tables/<int:table_id>/items/<int:pk>/edit/",
          ItemUpdateView.as_view(), name="item_update"),
