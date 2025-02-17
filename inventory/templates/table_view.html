@@ -22,11 +22,13 @@
                     Delete Table
                 </button></a
             >
-            <a href="{% url 'truncate_tables' %}" class="mt-2 w-fit"
+            <a
+                href="{% url 'truncate_items' table_id=selected_table.id %}"
+                class="mt-2 w-fit"
                 ><button
                     class="w-40 cursor-pointer rounded-lg border border-zinc-800 p-2 text-center transition duration-300 hover:bg-zinc-900"
                 >
-                    Restart Table
+                    Delete all items
                 </button></a
             >
         </div>

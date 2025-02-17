@@ -1,8 +1,7 @@
-from inventory.models import Table, Item  # Adjust based on your app structure
+from inventory.models import Table, Item
 from django.views import View
-from django.db import connection
 from django.urls import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
@@ -167,48 +166,50 @@ class ItemDeleteView(DeleteView):
         return reverse("table_view") + f"?table_id={self.kwargs['table_id']}"
 
 
-# -------------------- ITEM VIEWS --------------------
+# -------------------- TRUNCATE VIEWS --------------------
 
 
-class TruncateTableView(View):
+class TruncateTablesView(View):
+    template_name = "confirm_truncate.html"
+    success_url = reverse_lazy("table_view")
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "object_type": "tables",
+            "tables": Table.objects.all()
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            return redirect(self.success_url)
+
+        Table.objects.all().delete()
+        return redirect(self.success_url)
+
+
+class TruncateItemsView(View):
     template_name = "confirm_truncate.html"
 
-    def get(self, request):
-        return render(request, self.template_name, {"object_type": "tables"})
+    def get(self, request, *args, **kwargs):
+        table_id = self.kwargs["table_id"]
+        table = get_object_or_404(Table, id=table_id)
+        context = {
+            "object_type": "items",
+            "table": table,
+            "items": table.items.all()
+        }
+        return render(request, self.template_name, context)
 
-    def post(self, request):
-        if "confirm" in request.POST:
-            Item.objects.filter(table__isnull=False).delete()
-            Table.objects.all().delete()
-            return redirect(reverse("table_view"))
+    def post(self, request, *args, **kwargs):
+        table_id = self.kwargs["table_id"]
+        table = get_object_or_404(Table, id=table_id)
 
-        return redirect(reverse("table_view"))
+        if "cancel" in request.POST:
+            return redirect(reverse("table_view") + f"?table_id={table_id}")
 
+        if "items" in request.POST:
+            table.items.all().delete()
+            return redirect(reverse("table_view") + f"?table_id={table_id}")
 
-class TruncateTableView(View):
-    template_name = "confirm_truncate.html"
-
-    def get(self, request):
-        return render(request, self.template_name, {"object_type": "tables"})
-
-    def post(self, request):
-        if "confirm" in request.POST:
-            Item.objects.filter(table__isnull=False).delete()
-            Table.objects.all().delete()
-            return redirect(reverse("table_view"))
-
-        return redirect(reverse("table_view"))
-
-
-class TruncateItemView(View):
-    template_name = "confirm_truncate.html"
-
-    def get(self, request):
-        return render(request, self.template_name, {"object_type": "items"})
-
-    def post(self, request):
-        if "confirm" in request.POST:
-            Item.objects.all().delete()
-            return redirect(reverse("table_view"))
-
-        return redirect(reverse("table_view"))
+        return redirect(reverse("table_view") + f"?table_id={table_id}")
