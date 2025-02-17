@@ -1,3 +1,8 @@
+from inventory.models import Table, Item  # Adjust based on your app structure
+from django.views import View
+from django.db import connection
+from django.urls import reverse
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
@@ -9,8 +14,6 @@ from .forms import ItemForm, TableForm
 
 
 # -------------------- TABLE VIEWS --------------------
-
-from django.http import JsonResponse
 
 
 class TableAndItemView(ListView):
@@ -54,12 +57,14 @@ class TableCreateView(CreateView):
     model = Table
     form_class = TableForm
     template_name = "table_form.html"
-    success_url = reverse_lazy("table_view")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.all()
         return context
+
+    def get_success_url(self):
+        return reverse("table_view") + f"?table_id={self.object.id}"
 
 
 class TableUpdateView(UpdateView):
@@ -70,10 +75,12 @@ class TableUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.all()
+        context["selected_table"] = get_object_or_404(
+            Table, id=self.kwargs["pk"])
         return context
 
     def get_success_url(self):
-        return reverse("table_view") + f"?table_id={self.kwargs['table_id']}"
+        return reverse("table_view") + f"?table_id={self.object.id}"
 
 
 class TableDeleteView(DeleteView):
@@ -84,6 +91,13 @@ class TableDeleteView(DeleteView):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.all()
         return context
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            table_id = self.kwargs.get("table_id", self.get_object().id)
+            return redirect(reverse("table_view") + f"?table_id={table_id}")
+
+        return super().post(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse("table_view")
@@ -104,6 +118,8 @@ class ItemCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.all()
+        context["selected_table"] = get_object_or_404(
+            Table, id=self.kwargs["table_id"])
         return context
 
     def get_success_url(self):
@@ -123,6 +139,8 @@ class ItemUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.all()
+        context["selected_table"] = get_object_or_404(
+            Table, id=self.kwargs["table_id"])
         return context
 
     def get_success_url(self):
@@ -147,3 +165,23 @@ class ItemDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse("table_view") + f"?table_id={self.kwargs['table_id']}"
+
+
+class TruncateTableView(View):
+    template_name = "confirm_truncate.html"
+
+    def get(self, request):
+        """Render confirmation page."""
+        return render(request, self.template_name, {"object_type": "tables"})
+
+    def post(self, request):
+        """Handle the truncate request."""
+        if "confirm" in request.POST:
+            # Delete related items first, if any
+            Item.objects.filter(table__isnull=False).delete()
+            # Now delete all tables
+            Table.objects.all().delete()
+            # Redirect to table list after truncation
+            return redirect(reverse("table_view"))
+
+        return redirect(reverse("table_view"))  # Redirect if canceled
