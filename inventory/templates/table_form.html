@@ -25,7 +25,9 @@
             >
                 {% if object %}Update{% else %}Add{% endif %} Table
             </button>
-            <a href="{% url 'table_view' %}" class="w-[50%]"
+            <a
+                href="{% url 'table_view' %}?table_id={{ selected_table.id }}"
+                class="w-[50%]"
                 ><button
                     type="button"
                     class="w-[100%] cursor-pointer rounded-lg border border-zinc-800 p-2 text-center transition duration-300 hover:bg-zinc-900"
