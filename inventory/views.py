@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from .models import Item, Table
@@ -62,15 +62,31 @@ class TableCreateView(CreateView):
         return context
 
 
-class TableDeleteView(DeleteView):
+class TableUpdateView(UpdateView):
     model = Table
-    template_name = "confirm_delete.html"
-    success_url = reverse_lazy("table_")
+    form_class = TableForm
+    template_name = "table_form.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.all()
         return context
+
+    def get_success_url(self):
+        return reverse("table_view") + f"?table_id={self.kwargs['table_id']}"
+
+
+class TableDeleteView(DeleteView):
+    model = Table
+    template_name = "confirm_delete.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tables"] = Table.objects.all()
+        return context
+
+    def get_success_url(self):
+        return reverse("table_view")
 
 # -------------------- ITEM VIEWS --------------------
 
@@ -121,6 +137,13 @@ class ItemDeleteView(DeleteView):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.all()
         return context
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            table_id = self.kwargs.get("table_id", self.get_object().table.id)
+            return redirect(reverse("table_view") + f"?table_id={table_id}")
+
+        return super().post(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse("table_view") + f"?table_id={self.kwargs['table_id']}"
